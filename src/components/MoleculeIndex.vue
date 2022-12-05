@@ -6,7 +6,7 @@
         <a-tab-pane key="jsme" tab="JSME"/>
       </a-tabs>
       <iframe class="frame" id="idKetcher" src="./standalone/index.html" width="800" height="600" v-show="activeKey==='ketcher'"/>
-      <JSME height="600px" width="800px" options="oldlook,star,atommovebutton,hydrogens" :model-value="smiles" :onChange="changeSmiles" v-show="activeKey==='jsme'"/>
+      <JSME height="600px" width="800px" options="oldlook,star,atommovebutton,hydrogens" :model-value="jsmeSmiles" :onChange="changeSmiles" v-show="activeKey==='jsme'"/>
     </div>
     <div class="right_content">
       <p>
