@@ -42,6 +42,9 @@ export default {
     },
     getSmiles() {
       if (this.activeKey === 'ketcher') {
+        if (!this.ketcher) {
+          this.initKetcher();
+        }
         this.ketcher.getSmiles().then(res => {
           this.ketcherSmiles = res;
         }).catch(e => {
@@ -55,22 +58,25 @@ export default {
       this.currentSmiles = '';
       this.ketcherSmiles = ''
       this.jsmeSmiles = ''
+    },
+    initKetcher(){
+      let ketcherFrame = document.getElementById('idKetcher');
+      let ketcher = null;
+      if ('contentDocument' in ketcherFrame) {
+        ketcher = ketcherFrame.contentWindow.ketcher;
+      } else {
+        ketcher = document.frames['idKetcher'].window.ketcher;
+      }
+      this.ketcher = ketcher;
     }
   },
   created() {
     this.$nextTick(() => {
       setTimeout(() => {
-        let ketcherFrame = document.getElementById('idKetcher');
-        let ketcher = null;
-        if ('contentDocument' in ketcherFrame) {
-          ketcher = ketcherFrame.contentWindow.ketcher;
-        } else {
-          ketcher = document.frames['idKetcher'].window.ketcher;
-        }
-        this.ketcher = ketcher;
+       this.initKetcher();
       }, 500)
     })
-  }
+  },
 }
 </script>
 
