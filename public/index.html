@@ -10,6 +10,16 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
+    <script>
+      var _hmt = _hmt || [];
+      window._hmt = _hmt; // 修改为window 全局变量
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?146f1c2115cac0cec30cbc16bfec5c32";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+      </script>
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>

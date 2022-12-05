@@ -1,5 +1,8 @@
 # vue_molecule_editor
 
+## demo地址
+http://me.ichengle.top/
+
 ## Project setup
 ```
 npm install
