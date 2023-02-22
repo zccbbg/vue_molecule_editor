@@ -45,6 +45,12 @@
         <p style="font-size: 14px">{{ activeKey === 'ketcher' ? ketcherSmiles : jsmeSmiles }}</p>
       </div>
     </div>
+    <div class="el-login-footer">
+      <span
+      >Copyright © 2017-{{ year }} ichengle.top
+        技术支持：18556959326,微信同号.</span
+      >
+    </div>
   </div>
 
 </template>
@@ -54,14 +60,15 @@ import JSME from "./JSME";
 import { Modal } from 'ant-design-vue';
 
 export default {
-  name: 'MoleculeIndex',
+  name: "MoleculeIndex",
   components: {
-    JSME
+    JSME,
   },
   data() {
     return {
       searchKey: 1,
       activeKey: 'ketcher',
+      year: 2021,
       ketcher: null,
       ketcherSmiles: null,
       jsmeSmiles: null,
@@ -80,32 +87,38 @@ export default {
     changeSmiles(val) {
       this.currentSmiles = val;
     },
+    getYear() {
+      this.year = new Date().getFullYear();
+    },
     getSmiles() {
-      if (this.activeKey === 'ketcher') {
+      if (this.activeKey === "ketcher") {
         if (!this.ketcher) {
           this.initKetcher();
         }
-        this.ketcher.getSmiles().then(res => {
-          this.ketcherSmiles = res;
-        }).catch(e => {
-          console.log(e)
-        })
+        this.ketcher
+          .getSmiles()
+          .then((res) => {
+            this.ketcherSmiles = res;
+          })
+          .catch((e) => {
+            console.log(e);
+          });
       } else {
         this.jsmeSmiles = this.currentSmiles;
       }
     },
     changeTab() {
-      this.currentSmiles = '';
-      this.ketcherSmiles = ''
-      this.jsmeSmiles = ''
+      this.currentSmiles = "";
+      this.ketcherSmiles = "";
+      this.jsmeSmiles = "";
     },
     initKetcher() {
       let ketcherFrame = document.getElementById('idKetcher');
       let ketcher = null;
-      if ('contentDocument' in ketcherFrame) {
+      if ("contentDocument" in ketcherFrame) {
         ketcher = ketcherFrame.contentWindow.ketcher;
       } else {
-        ketcher = document.frames['idKetcher'].window.ketcher;
+        ketcher = document.frames["idKetcher"].window.ketcher;
       }
       this.ketcher = ketcher;
     },
@@ -117,15 +130,15 @@ export default {
     }
   },
   created() {
+    this.getYear();
     this.$nextTick(() => {
       setTimeout(() => {
         this.initKetcher();
-      }, 500)
-    })
+      }, 500);
+    });
   },
-}
+};
 </script>
-
 
 <style scoped>
 .molecule {
@@ -148,6 +161,17 @@ export default {
   width: calc(100% - 800px);
   margin-left: 50px;
   margin-top: 50px;
+}
+.el-login-footer {
+  height: 40px;
+  line-height: 40px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  font-family: Arial;
+  font-size: 12px;
+  letter-spacing: 1px;
 }
 
 .radio-group {

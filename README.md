@@ -1,5 +1,8 @@
 # vue_molecule_editor
 
+## demo地址
+http://me.ichengle.top/
+
 ## Project setup
 ```
 npm install
@@ -19,6 +22,6 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 图片
+![](https://oscimg.oschina.net/oscnet/up-47c7873f7f91924fa7ff81532946f11093e.png)
+![](https://oscimg.oschina.net/oscnet/up-6efd794c12f6a6ac03385cdaaf02420d776.png)
