@@ -1,11 +1,7 @@
 <template>
   <div class="molecule">
     <p>
-      <a-input-search class="input-search" v-model="smiles"
-                      placeholder="input smiles text"
-                      size="large"
-                      @search="onSearch"
-      >
+      <a-input-search class="input-search" v-model="smiles" placeholder="input smiles text" size="large" @search="onSearch">
         <template #enterButton>
           <a-button>Apply</a-button>
         </template>
@@ -14,13 +10,11 @@
     <div class="flex">
       <div class="left_content">
         <a-tabs :type="'card'" v-model="activeKey" @change="changeTab">
-          <a-tab-pane key="ketcher" tab="Ketcher"/>
-          <a-tab-pane key="jsme" tab="JSME"/>
+          <a-tab-pane key="ketcher" tab="Ketcher" />
+          <a-tab-pane key="jsme" tab="JSME" />
         </a-tabs>
-        <iframe class="frame" id="idKetcher" src="./standalone/index.html" width="800" height="600"
-                v-show="activeKey==='ketcher'"/>
-        <JSME height="600px" width="800px" options="oldlook,star,atommovebutton,hydrogens" :model-value="jsmeSmiles"
-              :onChange="changeSmiles" v-show="activeKey==='jsme'"/>
+        <iframe class="frame" id="idKetcher" src="./standalone/index.html" width="800" height="600" v-show="activeKey === 'ketcher'" />
+        <JSME height="600px" width="800px" options="oldlook,star,atommovebutton,hydrogens" :model-value="jsmeSmiles" :onChange="changeSmiles" v-show="activeKey === 'jsme'" />
       </div>
       <div class="right_content">
         <h2>搜索条件</h2>
@@ -32,37 +26,29 @@
           <a-radio :value="5">30%相似搜索</a-radio>
         </a-radio-group>
         <p>
-          <a-button @click="queryRecords" type="primary" icon="search">
-            Search Results
-          </a-button>
+          <a-button @click="queryRecords" type="primary" icon="search"> Search Results </a-button>
         </p>
         <a-divider />
         <p>
-          <a-button @click="getSmiles" type="primary" icon="search">
-            Get SMILES
-          </a-button>
+          <a-button @click="getSmiles" type="primary" icon="search"> Get SMILES </a-button>
         </p>
         <p style="font-size: 14px">{{ activeKey === 'ketcher' ? ketcherSmiles : jsmeSmiles }}</p>
       </div>
     </div>
     <div class="el-login-footer">
-      <span
-      >Copyright © 2017-{{ year }} ichengle.top
-        技术支持：18556959326,微信同号.</span
-      >
+      <span>Copyright © 2017-{{ year }} ichengle.top 技术支持：18015578617,微信同号.</span>
     </div>
   </div>
-
 </template>
 
 <script>
-import JSME from "./JSME";
-import { Modal } from 'ant-design-vue';
+import JSME from './JSME'
+import { Modal } from 'ant-design-vue'
 
 export default {
-  name: "MoleculeIndex",
+  name: 'MoleculeIndex',
   components: {
-    JSME,
+    JSME
   },
   data() {
     return {
@@ -73,71 +59,71 @@ export default {
       ketcherSmiles: null,
       jsmeSmiles: null,
       currentSmiles: null,
-      smiles: null,
+      smiles: null
     }
   },
   methods: {
     onSearch() {
       this.$nextTick(() => {
-        this.initKetcher();
+        this.initKetcher()
         this.ketcher.setMolecule(this.smiles)
         this.jsmeSmiles = this.smiles
       })
     },
     changeSmiles(val) {
-      this.currentSmiles = val;
+      this.currentSmiles = val
     },
     getYear() {
-      this.year = new Date().getFullYear();
+      this.year = new Date().getFullYear()
     },
     getSmiles() {
-      if (this.activeKey === "ketcher") {
+      if (this.activeKey === 'ketcher') {
         if (!this.ketcher) {
-          this.initKetcher();
+          this.initKetcher()
         }
         this.ketcher
           .getSmiles()
-          .then((res) => {
-            this.ketcherSmiles = res;
+          .then(res => {
+            this.ketcherSmiles = res
           })
-          .catch((e) => {
-            console.log(e);
-          });
+          .catch(e => {
+            console.log(e)
+          })
       } else {
-        this.jsmeSmiles = this.currentSmiles;
+        this.jsmeSmiles = this.currentSmiles
       }
     },
     changeTab() {
-      this.currentSmiles = "";
-      this.ketcherSmiles = "";
-      this.jsmeSmiles = "";
+      this.currentSmiles = ''
+      this.ketcherSmiles = ''
+      this.jsmeSmiles = ''
     },
     initKetcher() {
-      let ketcherFrame = document.getElementById('idKetcher');
-      let ketcher = null;
-      if ("contentDocument" in ketcherFrame) {
-        ketcher = ketcherFrame.contentWindow.ketcher;
+      let ketcherFrame = document.getElementById('idKetcher')
+      let ketcher = null
+      if ('contentDocument' in ketcherFrame) {
+        ketcher = ketcherFrame.contentWindow.ketcher
       } else {
-        ketcher = document.frames["idKetcher"].window.ketcher;
+        ketcher = document.frames['idKetcher'].window.ketcher
       }
-      this.ketcher = ketcher;
+      this.ketcher = ketcher
     },
     queryRecords() {
       Modal.info({
         title: () => '温馨提示',
-        content: () => '该功能为高级版功能，请联系微信： zccbbg',
-      });
+        content: () => '该功能为高级版功能，请联系微信： 18015578617'
+      })
     }
   },
   created() {
-    this.getYear();
+    this.getYear()
     this.$nextTick(() => {
       setTimeout(() => {
-        this.initKetcher();
-      }, 500);
-    });
-  },
-};
+        this.initKetcher()
+      }, 500)
+    })
+  }
+}
 </script>
 
 <style scoped>
